@@ -12,7 +12,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 ## Prepare docker-compose
-To use docker-compose, create an .env file and enter the following data there
+To use docker-compose, create .env file and enter the following data there
 ```
 POSTGRES_HOST=db
 POSTGRES_USER=postgres
