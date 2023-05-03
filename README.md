@@ -8,12 +8,15 @@ Install PostgresSQL and create db
 git clone https://github.com/BohdanLazaryshyn/Cinema-API.git
 cd cinema_API
 python -m venv venv
-source venv/bin/activate
+venv\Scripts\activate (on Windows)
+source venv/bin/activate (on macOS)
 pip install -r requirements.txt
 ```
-## Prepare docker-compose
+## Prepare your .env file
 To use docker-compose, create .env file and enter the following data there
 ```
+SECRET_KEY=SECRET_KEY
+DEBUG=DEBUG
 POSTGRES_HOST=db
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=secretpassword
@@ -25,7 +28,8 @@ POSTGRES_NAME=postgres
 python manage.py migrate
 python manage.py runserver
 ```
-## Run docker
+## Run with docker
+Docker should be installed
 ```
 docker-compose build
 docker-compose up

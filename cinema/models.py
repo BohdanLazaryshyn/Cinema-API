@@ -1,10 +1,8 @@
-import os
-import uuid
-
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.conf import settings
-from django.utils.text import slugify
+
+from cinema.media_path import movie_image_file_path
 
 
 class CinemaHall(models.Model):
@@ -39,12 +37,6 @@ class Actor(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
-def movie_image_file_path(instance, filename):
-    _, extension = os.path.splitext(filename)
-    filename = f"{slugify(instance.title)}-{uuid.uuid4()}{extension}"
-
-    return os.path.join("uploads/movies/", filename)
-
 
 class Movie(models.Model):
     title = models.CharField(max_length=255)
@@ -63,8 +55,8 @@ class Movie(models.Model):
 
 class MovieSession(models.Model):
     show_time = models.DateTimeField()
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    cinema_hall = models.ForeignKey(CinemaHall, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="sessions")
+    cinema_hall = models.ForeignKey(CinemaHall, on_delete=models.CASCADE, related_name="sessions")
 
     class Meta:
         ordering = ["-show_time"]
